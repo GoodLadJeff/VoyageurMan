@@ -2,11 +2,13 @@
 class Road
 {
 private:
-	static int numberOfRoads;
+	
 	int id;
+	int length;
 
 public:
-	Road();
+	
+	Road(int length);
 	int GetId() { return id; }
 };
 

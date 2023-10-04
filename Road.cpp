@@ -1,7 +1,10 @@
 #include "Road.h"
 
-Road::Road()
+Road::Road(int length)
 {
+	static int numberOfRoads;
 	id = numberOfRoads;
 	numberOfRoads++;
+
+	this->length = length;
 }

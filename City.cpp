@@ -1,4 +1,10 @@
 #include "City.h"
+#include <iostream>
+
+City::City()
+{
+	roads = {};
+}
 
 City::City(std::vector<Road> r)
 {
@@ -13,4 +19,10 @@ bool City::CheckIsRoadLinked(Road* road)
 	}
 
 	return false;
+}
+
+void City::PrintLinkedRoads()
+{
+	for (int i = 0; i < roads.size(); i++)
+		std::cout << "Road n°" << roads[i].GetId() << " " << std::endl;
 }

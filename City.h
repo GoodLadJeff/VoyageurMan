@@ -8,9 +8,12 @@ private :
 	std::vector<Road> roads;
 
 public :
+	City();
 	City(std::vector<Road> r);
-	~City();
 
 	bool CheckIsRoadLinked(Road* road);
+	void AddLinkedRoad(const Road* road) { roads.push_back(*road); }
+	
+	void PrintLinkedRoads();
 };
 
