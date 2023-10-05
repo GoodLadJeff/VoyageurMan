@@ -21,6 +21,32 @@ bool City::CheckIsRoadLinked(Road* road)
 	return false;
 }
 
+bool City::IsLinkedToCity(City* cityToCheck)
+{
+	for (auto var : roads) 
+	{
+		if (cityToCheck->CheckIsRoadLinked(&var))
+			return true;
+	}
+
+	return false;
+}
+
+Road* City::GetCommonRoad(City* cityA, City* cityb)
+{
+	if (!cityA->IsLinkedToCity(cityb))
+	{
+		return nullptr;
+	}
+	else {
+		for (auto var : cityb->GetLinkedRoads())
+		{
+			if (cityA->CheckIsRoadLinked(&var))
+				return &var;
+		}
+	}
+}
+
 void City::PrintLinkedRoads()
 {
 	for (int i = 0; i < roads.size(); i++)

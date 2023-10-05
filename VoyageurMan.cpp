@@ -3,6 +3,7 @@
 
 #include "City.h"
 #include "Road.h"
+#include "Traveler.h"
 
 int main()
 {
@@ -11,23 +12,34 @@ int main()
     std::cout << "Hello VoyageurMan!\n";
 
     int currentCourse = 0;
+    std::vector<City*> cities;
 
     Road road1 = Road(2);
     Road road2 = Road(2);
-
     Road road3 = Road(3);
     Road road4 = Road(3);
-    Road road5 = Road(3);
-    Road road6 = Road(3);
-
+    Road road5 = Road(1);
+    Road road6 = Road(1);
     Road road7 = Road(3);
     Road road8 = Road(3);
 
+
     City cityA = City();
-    City cityB = City();                                                                                                       
+    cities.push_back(&cityA);
+    City cityB = City();     
+    cities.push_back(&cityB);
     City cityC = City();
+    cities.push_back(&cityC);
     City cityD = City();
+    cities.push_back(&cityD);
     City cityE = City();
+    cities.push_back(&cityE);
+
+    cityA.name = "A";
+    cityB.name = "B";
+    cityC.name = "C";
+    cityD.name = "D";
+    cityE.name = "E";
 
     cityA.AddLinkedRoad(&road1);
     cityB.AddLinkedRoad(&road1);
@@ -65,5 +77,12 @@ int main()
     cityE.PrintLinkedRoads();
 
 
+    Traveler player = Traveler(cities, &cityD);
 
+    for (int i = 0; i < cities.size() - 1; i++)
+    {
+        std::cout << player.GetDistanceTraveled() << std::endl;
+        player.SelectNewDestination();
+        
+    }
 }
