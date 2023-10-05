@@ -5,7 +5,7 @@
 #include "Road.h"
 #include "Traveler.h"
 
-int main()
+int notmain()
 {
     //il commence à D
 
@@ -85,4 +85,6 @@ int main()
         player.SelectNewDestination();
         
     }
+
+    return 0;
 }

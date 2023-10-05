@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="City.cpp" />
     <ClCompile Include="Road.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="Traveler.cpp" />
     <ClCompile Include="VoyageurMan.cpp" />
   </ItemGroup>
