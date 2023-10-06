@@ -1,24 +1,20 @@
 #pragma once
 #include "Road.h"
 #include <vector>
-#include <string>
+
+using namespace std;
 
 class City
 {
-private :
-	std::vector<Road> roads;
+private:
+    int id;
+    vector<Road*> roadVector;
+    const char* name;
 
-public :
-	const char* name;
-	City();
-	City(std::vector<Road> r);
+public:
+    City(const char* setName, int setID, vector<Road*> graph);
 
-	static Road* GetCommonRoad(City* cityA, City* cityb);
-
-	bool CheckIsRoadLinked(Road* road);
-	void AddLinkedRoad(const Road* road) { roads.push_back(*road); }
-	bool IsLinkedToCity(City* cityToCheck);
-	std::vector<Road> GetLinkedRoads() { return (roads); }
-	void PrintLinkedRoads();
+    int GetID() { return id; }
+    const char* GetName() { return name; }
+    vector<Road*> GetRoadVector() { return roadVector; }
 };
-

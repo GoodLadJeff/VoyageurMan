@@ -1,27 +1,23 @@
 #pragma once
-#include "City.h"
+
 #include <vector>
+#include <algorithm>
+#include <iostream>
+
+#include "City.h"
+
+using namespace std;
 
 class Traveler
 {
 private:
-	
+    vector<vector<int>> citiesMap;
+    vector<City*> allCities;
+    vector<City*> wayUsed;
 
 public:
-	std::vector<City*> citiesTraversed;
-	std::vector<City*> allCities;
-	City* startLocation;
-	City* currentCity;
-	int distanceTraveled;
+    Traveler(vector<City*> allCities);
+    void TravelThroughCities(City* source);
 
-	Traveler(std::vector<City*> allCities, City* startLocation);
-	void SetStartLocation(City* startingCity);
-	void AddCitiesVisited(City* cityVisited);
-	int GetDistanceTraveled() { return distanceTraveled; }
-	void AddDistanceTraveled(int distanceToAdd) { distanceTraveled += distanceToAdd; }
-	void ResetDistanceTraveled() { distanceTraveled = 0; }
-	City* GetCurrentCityIn() { return currentCity; }
-	bool HasCityBeenVisited(City* cityToCheck);
-	void SelectNewDestination();
+    vector<vector<int>> GetCitiesMap() { return citiesMap; }
 };
-

@@ -1,55 +1,64 @@
 #include "Traveler.h"
-#include <iostream>
 
-Traveler::Traveler(std::vector<City*> allCities, City* startLocation)
+
+Traveler::Traveler(vector<City*> allCities)
 {
-	this->allCities = allCities;
-	std::vector<City*> citiesTraversed{};
-	SetStartLocation(startLocation);
-	int distanceTraveled = 0;
+    int size = allCities.size();
+    for (int i = 0; i < size; i++)
+    {
+        vector<int> temp;
+        citiesMap.push_back(temp);
+        for (int j = 0; j < size; j++)
+            citiesMap[i].push_back(allCities[i]->GetRoadVector()[j]->GetLength());
+    }
+
+    this->allCities = allCities;
+    wayUsed = {};
 }
 
-void Traveler::SetStartLocation(City* startingCity)
+void Traveler::TravelThroughCities(City* source)
 {
-	startLocation = startingCity;
-	citiesTraversed.clear();
-	citiesTraversed.push_back(startingCity);
-	currentCity = startingCity;
-}
+    int minCost = 1000000;
+    int currentCost = 0;
+    int cityCurrentlyVisiting = source->GetID();
 
-void Traveler::AddCitiesVisited(City* cityVisited)
-{
-	citiesTraversed.push_back(cityVisited);
-}
+    vector<City*> currentWayUsed;
 
-bool Traveler::HasCityBeenVisited(City* cityToCheck)
-{
-	for (auto var : citiesTraversed)
-	{
-		if (var == cityToCheck) return true;
-	}
+    vector<int> citiesOtherThanSource;
+    for (int i = 0; i < allCities.size(); i++)
+        if (i != source->GetID())
+            citiesOtherThanSource.push_back(i);
 
-	return false;
-}
+    while (next_permutation(citiesOtherThanSource.begin(), citiesOtherThanSource.end()))
+    {
+        currentCost = 0;
+        cityCurrentlyVisiting = source->GetID();
 
-void Traveler::SelectNewDestination()
-{
-	City* currentCity = GetCurrentCityIn();
+        for (int i = 0; i < citiesOtherThanSource.size(); i++)
+        {
+            currentCost += citiesMap[cityCurrentlyVisiting][citiesOtherThanSource[i]];
+            cityCurrentlyVisiting = citiesOtherThanSource[i];
+            currentWayUsed.push_back(allCities[cityCurrentlyVisiting]);
+        }
 
-	for (auto var : allCities)
-	{
-		if (currentCity->IsLinkedToCity(var) && !HasCityBeenVisited(var))
-		{
-			std::cout << "la current est " << currentCity->name << std::endl;
-			distanceTraveled += City::GetCommonRoad(currentCity, var)->GetLength();
-			citiesTraversed.push_back(var);
-			currentCity = var;
-			std::cout << "la current est devenue " << currentCity->name << std::endl;
-			return;
-		}
-		else
-		{
-			std::cout <<  var->name << " la currentCity " << currentCity->name <<" n'est pas liee ou la ville a ete visitee" << std::endl;
-		}
-	}
+        currentCost += citiesMap[cityCurrentlyVisiting][source->GetID()];
+
+        if (minCost > currentCost)
+        {
+            minCost = currentCost;
+            wayUsed = currentWayUsed;
+        }
+
+        currentWayUsed.clear();
+    }
+    
+    std::cout << "the minimal cost is " << minCost << std::endl;
+    std::cout << "starting from city " << source->GetName() <<", the way used is ";
+
+    for (int i = 0; i < wayUsed.size(); i++)
+    {
+        std::cout << "city " << wayUsed[i]->GetName() << ", ";
+    }
+
+    std::cout << "and then back to city " << source->GetName() << "." << std::endl;
 }

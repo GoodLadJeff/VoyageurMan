@@ -129,9 +129,8 @@
   <ItemGroup>
     <ClCompile Include="City.cpp" />
     <ClCompile Include="Road.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Traveler.cpp" />
-    <ClCompile Include="VoyageurMan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="City.h" />
